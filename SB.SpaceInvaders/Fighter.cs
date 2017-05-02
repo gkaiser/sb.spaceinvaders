@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace SB.SpaceInvaders
 {
@@ -11,15 +8,14 @@ namespace SB.SpaceInvaders
   {
     public const int WIDTH = 30;
     public const int HEIGHT = 20;
-
     public int X;
-    public readonly int Y;
+    public int Y;
     public int SpeedHoriz;
 
     public Fighter()
     {
-      this.X = (FrmGameBoard.BOARD_WIDTH_P / 2) - (Fighter.WIDTH / 2);
-      this.Y = (FrmGameBoard.BOARD_HEIGHT_P) - Fighter.HEIGHT;
+      this.X = (Scene.WIDTH / 2) - (Fighter.WIDTH / 2);
+      this.Y = Scene.HEIGHT - Fighter.HEIGHT;
     }
 
     public void Draw(Graphics gfx)
@@ -36,7 +32,7 @@ namespace SB.SpaceInvaders
 
     public void UpdateLocation()
     {
-      this.X += this.SpeedHoriz;
+      this.X = (this.X + this.SpeedHoriz).Constrain(0, Scene.WIDTH - Fighter.WIDTH);
     }
 
     public LaserBeam FireLaser()

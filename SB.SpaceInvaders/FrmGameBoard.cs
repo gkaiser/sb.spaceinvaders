@@ -54,10 +54,10 @@ namespace SB.SpaceInvaders
 
     private void FrmMain_KeyDown(object sender, KeyEventArgs e)
     {
-      if (e.KeyCode == Keys.Space)
+      if (e.KeyCode == Keys.Escape)
         this.ctxGame_miReset_Click(sender, e);
       else
-        this.Scene.HandleKeyPress(e);
+        this.Scene.HandleKeyPress(e.KeyCode);
     }
 
     private void ctxGame_miReset_Click(object sender, EventArgs e)

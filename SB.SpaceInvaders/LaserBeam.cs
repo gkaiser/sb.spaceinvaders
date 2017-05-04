@@ -10,7 +10,7 @@ namespace SB.SpaceInvaders
     public const int WIDTH = 2;
     public const int HEIGHT = 15;
     public readonly int X = 0;
-    private int Y;
+    public int Y;
 
     private LaserBeam(int x)
     {

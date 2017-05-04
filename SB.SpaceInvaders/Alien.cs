@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace SB.SpaceInvaders
 {
@@ -13,18 +11,32 @@ namespace SB.SpaceInvaders
     public const int HEIGHT = 30;
     public int X;
     public int Y;
+    public int SpeedHoriz;
+    public int SpeedVert = 2;
+    public int PointsReward;
 
-    public Alien() { }
+    private Alien() { }
 
     public void Draw(Graphics gfx)
     {
-      gfx.DrawImage(SB.SpaceInvaders.Properties.Resources.StdImg_48_Alien_30, this.X, this.Y, Alien.WIDTH, Alien.HEIGHT);
+      var img = SB.SpaceInvaders.Properties.Resources.StdImg_48_Alien_30;
+      if (this.PointsReward == 20)
+        img = SB.SpaceInvaders.Properties.Resources.StdImg_48_Alien_20;
+      if (this.PointsReward == 10)
+        img = SB.SpaceInvaders.Properties.Resources.StdImg_48_Alien_10;
+
+      gfx.DrawImage(img, this.X, this.Y, Alien.WIDTH, Alien.HEIGHT);
+    }
+
+    public void UpdateLocation()
+    {
+      this.X += this.SpeedHoriz;
+      this.Y += this.SpeedVert;
     }
 
     public static List<Alien> GenerateDefaultAlienSet(int totRows)
     {
       var aliens = new List<Alien>();
-      var totWidth = (Scene.WIDTH - Alien.WIDTH) / 11;
 
       for (int j = 0; j < totRows; j++)
       {
@@ -41,16 +53,18 @@ namespace SB.SpaceInvaders
           if (a.X + Alien.WIDTH >= Scene.WIDTH)
             break;
 
+          if (j == 0)
+            a.PointsReward = 30;
+          else if (j == (totRows - 1))
+            a.PointsReward = 10;
+          else
+            a.PointsReward = 20;
+
           aliens.Add(a);
         }
       }
 
       return aliens;
-    }
-
-    public void UpdateLocation()
-    {
-
     }
 
   }

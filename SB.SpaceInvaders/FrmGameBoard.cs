@@ -37,6 +37,7 @@ namespace SB.SpaceInvaders
 
       var gfx = e.Graphics;
 
+      this.Scene.CheckAlienLaserCollisions();
       this.Scene.Draw(gfx);
       this.Scene.Update();
 
